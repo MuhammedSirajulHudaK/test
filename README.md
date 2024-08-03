@@ -1,4 +1,4 @@
-# 🧠 **ThinkingPsychologist**
+![WhatsApp Image 2024-08-03 at 20 18 17 (2)](https://github.com/user-attachments/assets/0422c10d-ea15-48d9-aa53-32ecaa1a0eac)# 🧠 **ThinkingPsychologist**
 
 Welcome to **ThinkingPsychologist**! This innovative application, powered by Falcon LLM, serves as a virtual psychologist, offering users a unique opportunity to explore their psychology through storytelling.
 
@@ -58,3 +58,16 @@ To run the Streamlit app, use the following command:
 
 ```bash
 streamlit run app.py
+
+## Home Page
+
+![First Image](assets/firstscreen.png)
+
+## Storytelling Page
+
+![Storytelling](assets/secondscreen.png)
+
+## Report Download Page
+
+![Download Report](assets/lastscreen.png)
+
