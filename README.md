@@ -37,7 +37,7 @@ A detailed PDF report is created and made available for download, including an o
 1. **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/your-username/your-repo-name.git](https://github.com/MuhammedSirajulHudaK/ThinkingPsychologist.git)
+    git clone https://github.com/MuhammedSirajulHudaK/ThinkingPsychologist.git
     ```
 
 2. **Navigate into the project directory:**
