@@ -226,7 +226,7 @@ def recording_page():
     st.image(image_urls[current_image_index], use_column_width=True)
     #with col2:
     st.write("Please tell a story about this image.")
-    st.write("Click 'Start Recording' to record your story, 'Stop' to end it, 'Submit' to send it, and use 'Start Recording' for the next image")
+    st.write("Click 'Start Recording' to record your story, 'Stop' to end it, 'Submit' to send it (wait for the successful submit message), and use 'Start Recording' for the next image")
 
 
     col1, col2 = st.columns([4, 2])
