@@ -3,3 +3,4 @@ streamlit-audiorec
 fpdf
 openai-whisper
 ai71
+ffmpeg-python
