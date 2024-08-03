@@ -57,6 +57,8 @@ A detailed PDF report is created and made available for download, including an o
 
     ```bash
     pip install -r requirements.txt
+    sudo apt-get update
+    sudo apt-get install ffmpeg
     ```
 
 ## 🚀 **Running the App**
