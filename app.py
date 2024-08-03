@@ -166,7 +166,7 @@ class PDF(FPDF):
         self.log_text = log_text
 
     def header(self):
-        self.image("assets/tp.png" , x=180, y=10, w=20)
+        self.image("assets/logo.png" , x=180, y=10, w=20)
         self.set_font("Arial", 'B', 16)
         self.cell(0, 10, "PERSONALITY ASSESSMENT REPORT", 0, 1, 'C')
         self.set_font("Arial", size=12)
