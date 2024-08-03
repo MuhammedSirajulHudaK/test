@@ -1,5 +1,5 @@
-streamlit==1.18.1
-st-audiorec==0.1.0
-fpdf==1.7.2
-whisper==1.0.0
-ai71==0.1.0
+streamlit
+st-audiorec
+fpdf
+openai-whisper
+ai71
