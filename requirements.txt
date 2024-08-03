@@ -1,5 +1,5 @@
 streamlit
-st-audiorec
+streamlit-audiorec
 fpdf
 openai-whisper
 ai71
