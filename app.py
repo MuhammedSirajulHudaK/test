@@ -91,12 +91,11 @@ def generate_assessment_report(transcription, user_name):
 
     # Define the prompt and input
     prompt = f"""
-    Convert the following story into a personality assessment report using the format provided. Customize the report for the user named {user_name}:
-
+    Convert the following story into a personality assessment report, don't include stories, it should follow the format provided. Customize the report for the user named {user_name}:
     Story: {transcription}
 
     Format:
-
+    
     Disclaimer: This is an AI-generated report and should be validated with a professional clinical psychologist.
 
     Overall Score: give an overall score
@@ -123,7 +122,7 @@ def generate_assessment_report(transcription, user_name):
     Confidence                   
     Communication Skills         
 
-    Key Observations from the Stories:
+    Key Observations after the Story analysis:
     Give key observations here from the story analysis
 
     Personality Summary:
