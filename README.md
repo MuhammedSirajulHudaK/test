@@ -4,7 +4,7 @@ Welcome to **ThinkingPsychologist**! This innovative application, powered by Fal
 
 By analyzing narratives created in response to a series of images, ThinkingPsychologist provides insights into personality traits, emotional states, and other psychological aspects.
 
-## Access the Deployed App
+## 🌐 Access the Deployed App
 
 You can access the deployed app at the following link:
 
