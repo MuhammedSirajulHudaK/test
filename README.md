@@ -7,7 +7,7 @@ By analyzing narratives created in response to a series of images, ThinkingPsych
 🌐 **Access the Deployed App**  
 You can access the deployed app at the following link:
 
-[ThinkingPsychologist App](#)
+[ThinkingPsychologist App](https://thinkingpsychologist-dpfclbx99uuzamqfmejxhz.streamlit.app/)
 
 🚀 **Features**
 
