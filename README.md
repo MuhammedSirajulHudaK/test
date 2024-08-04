@@ -75,7 +75,7 @@ streamlit run app.py
 
 ## Storytelling Page
 
-![Storytelling](assets/secondscreen.png)
+![Storytelling]()
 
 ## Report Download Page
 
