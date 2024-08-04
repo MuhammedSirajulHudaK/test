@@ -1,13 +1,12 @@
 import os
 import streamlit as st
-from st_audiorec import st_audiorec
 from fpdf import FPDF
-import whisper
 from ai71 import AI71
 import base64
 from datetime import date
 
 user_name = 'Anonymous'
+
 # Custom CSS to modify the UI/UX
 st.markdown(
     """
@@ -36,9 +35,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # Path to the logo image
-logo_path  = "assets/logo.png"  # Update this with the correct path to your logo image
+logo_path = "assets/logo.png"  # Update this with the correct path to your logo image
 
 # Function to display logo
 def display_logo():
@@ -49,7 +47,6 @@ def display_logo():
             f'<div class="logo"><img src="data:image/png;base64,{encoded_image}" alt="Logo"></div>',
             unsafe_allow_html=True,
         )
-
 
 # List of image URLs or paths
 image_urls = [
@@ -66,24 +63,11 @@ if 'page' not in st.session_state:
 if 'recordings' not in st.session_state:
     st.session_state.recordings = [None] * len(image_urls)
 
-# Load Whisper model
-model = whisper.load_model("base")  # Use "base.en" for English-only
-
-# Save audio file locally
-def save_audio(audio_data, index):
-    file_path = f"recording_{index + 1}.wav"
-    with open(file_path, "wb") as f:
-        f.write(audio_data)
-    return file_path
-
-# Transcribe audio using Whisper
-def transcribe_audio(file_path):
-    audio = whisper.load_audio(file_path)
-    audio = whisper.pad_or_trim(audio)
-    mel = whisper.log_mel_spectrogram(audio).to(model.device)
-    options = whisper.DecodingOptions(language="english", task="transcribe")
-    result = model.decode(mel, options)
-    return result.text
+# Submit text input
+def submit():
+    st.session_state.my_text = st.session_state.widget
+    st.session_state.widget = ""
+    st.session_state.page += 1
 
 # Generate personality assessment report using AI71
 def generate_assessment_report(transcription, user_name):
@@ -154,9 +138,7 @@ def generate_assessment_report(transcription, user_name):
 
     return response.choices[0].message.content.strip()
 
-# Create PDF report with the personality assessmen
-
-
+# Create PDF report with the personality assessment
 class PDF(FPDF):
     def __init__(self, report_text, user_name, log_text):
         super().__init__()
@@ -165,7 +147,7 @@ class PDF(FPDF):
         self.log_text = log_text
 
     def header(self):
-        self.image("assets/logo.png" , x=180, y=10, w=20)
+        self.image("assets/logo.png", x=180, y=10, w=20)
         self.set_font("Arial", 'B', 16)
         self.cell(0, 10, "PERSONALITY ASSESSMENT REPORT", 0, 1, 'C')
         self.set_font("Arial", size=12)
@@ -198,7 +180,7 @@ def intro():
         """
         This app helps to understand the psychology of individuals by asking them
         to create stories for different images. You will see a series of images and
-        you are supposed to record a story based on each image.
+        you are supposed to describe a story based on each image.
         
         **Click "Start" to start the assessment.**
         """
@@ -220,33 +202,20 @@ def recording_page():
     current_image_index = st.session_state.page - 1
     display_logo()
 
-    #col1, col2 = st.columns([4, 2])
-    #with col1:
     st.image(image_urls[current_image_index], use_column_width=True)
-    #with col2:
     st.write("Please tell a story about this image.")
-    st.write("Click 'Start Recording' to record your story, 'Stop' to end it, 'Submit' to send it (wait for the successful submit message), and use 'Start Recording' for the next image")
 
-
-    col1, col2 = st.columns([4, 2])
-    with col1:
-        wav_audio_data = st_audiorec()
-    with col2:
-        col11, col12 = st.columns([1, 5])
-# Place the button in the center column 
-        with col12:
-            st.write("")  # Add some space
-            st.write("")  # Add more space if needed
-            st.write("")  # Add additional space if necessary
-            st.write("")  # Add even more space if needed
-            if st.button("Submit"):       
-                save_audio(wav_audio_data, current_image_index)
-                st.session_state.recordings[current_image_index] = wav_audio_data
-                st.session_state.page += 1
-                st.success("Recording saved successfully. Press 'Start Recording' for the next task.")
+    text_story = st.text_area("Type your story here:", "", key="widget", on_change=submit)
     
-
-
+    if st.button("Submit Text Story"):
+        if text_story:
+            st.session_state.recordings[current_image_index] = {
+                "type": "text",
+                "data": text_story
+            }
+            st.success("Text story saved successfully.")
+            
+        
 
 # Final Page
 def final_page():
@@ -254,8 +223,6 @@ def final_page():
     st.title("Thank you for completing the assessment! 🧠✨")
     st.subheader("Download your psychology assessment report")
     st.write("Please be patient while the download button is being prepared. It may take a moment.")
-    
-
     
     st.write(
         """
@@ -268,11 +235,10 @@ def final_page():
     st.write("📥 You can find your report here once the analysis is complete")
     user_name = st.text_input("Enter your name:", "Anonymous")  # Get user's name
     combined_transcription = ""
+
     for i, recording in enumerate(st.session_state.recordings):
-        if recording:
-            file_path = save_audio(recording, i)
-            transcription = transcribe_audio(file_path)
-            combined_transcription += f"Story {i + 1}: {transcription}\n\n"
+        if recording and recording["type"] == "text":
+            combined_transcription += f"Story {i + 1}: {recording['data']}\n\n"
 
     report_text = generate_assessment_report(combined_transcription, user_name)
     pdf_output = create_pdf_report(report_text, user_name)
@@ -283,10 +249,6 @@ def final_page():
     st.session_state.page = 0
     if st.button("Start Over"):
         st.session_state.recordings = [None] * len(image_urls)
-
-
-    
-
 
 # Page routing logic
 def main():
