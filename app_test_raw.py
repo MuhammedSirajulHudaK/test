@@ -193,6 +193,7 @@ def create_pdf_report(report_text, user_name, log_text="ThinkingPsychologist - P
 def intro():
     display_logo()
     st.title("Welcome to ThinkingPsychologist")
+    st.video("https://youtu.be/uBK8kgdXAnE", start_time=0)
     st.subheader("Take your psychology assessment")
     st.markdown(
         """
