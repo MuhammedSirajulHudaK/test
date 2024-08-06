@@ -54,9 +54,7 @@ def display_logo():
 # List of image URLs or paths
 image_urls = [
     "assets/1.png",
-    "assets/2.png",
-    "assets/5.png",
-    "assets/4.png"
+    "assets/2.png"
 ]
 
 # Initialize session state
